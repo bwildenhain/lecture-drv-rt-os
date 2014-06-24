@@ -17,8 +17,19 @@ cat boundaries-1.c
 pause
 cgcc -g -ggdb  -std=c99 -Wall boundaries-1.c -o boundaries-1
 pause
+
+valgrind ./boundaries-1
+pause
+
+cat boundaries-2.c
+pause
+cgcc -g -ggdb  -std=c99 -Wall boundaries-2.c -o boundaries-2
+valgrind ./boundaries-2
+pause
+
 # Zugriff auf foo[10] nicht erkannt
 pause
+
 clear
 
 cat indent-0.c
