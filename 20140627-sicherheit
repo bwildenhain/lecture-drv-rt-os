@@ -14,8 +14,6 @@
  -Benutzerkonzept
  -Capabilities
 
-
-
 Auf einem klassischen Linuxsystem kann man ein Programm entweder
 privilegiert (also mit root-Rechten, uid 0, Programm darf i.W. alles)
 oder nicht-privilegiert (Programm
@@ -43,6 +41,6 @@ beschränken.
 Weitere Infos: man capabilities
 
  -Datei-Berechtigungen (klassisch, +ACLs)
- -Linux Security Modules (daraus kann man bei Bedarf eine semesterlange Vorlesung füllen, habe selbst aber sehr wenig Erfahrung)
+ -Linux Security Modules
   -SELinux
   -AppArmor
