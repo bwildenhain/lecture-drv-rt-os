@@ -1,0 +1,48 @@
+-Was sind Buffer-Overflows? (->Wikipedia Pufferüberlauf)
+ -Überprüfungswerkzeuge
+ -Canary durch Compiler einfügen (analog Kanarienvogel im Bergbau)
+ -Rücksprungadresse kopieren
+
+-Bugs und potentielle Sicherheitsproblem finden
+ -Automatische Codeanalyse -> statische (z.B. ->lint), dynamische (z.B. ->valgrind)
+
+-NX-Bit: No eXecute
+ -CPU unterstütztes Sicherheitsverfahren
+ -Speicherseiten werden als Daten- oder Programmsegment markiert
+
+-Sicherheitsmechanismen unter Linux
+ -Benutzerkonzept
+ -Capabilities
+
+
+
+Auf einem klassischen Linuxsystem kann man ein Programm entweder
+privilegiert (also mit root-Rechten, uid 0, Programm darf i.W. alles)
+oder nicht-privilegiert (Programm
+darf nur auf die Dateien zugreifen, die entsprechenden
+Dateiberechtigungen zugelassen sind, darf nur auf UDP/TCP-Ports >= 1024
+Verbindungen annehmen etc.) ausgeführt werden.
+
+Häufig benötigt ein Programm zwar bestimmte Rechte, die root vorbehalten
+sind, benötigt aber nicht über seine gesamte Laufzeit alle Rechte. Um
+die Gefahr durch Programmier- und Konfigurationsfehler zu senken, kann
+jeder Thread eines Programm daher freiwillig diese Rechte abgeben. Dazu
+wurde in Linux 2.2 das Konzept der Capabilities eingeführt.
+
+Angenommen, man benutze einen IMAP-Mail-Server. Dieser muss z.B. (falls man
+nicht inetd o.ä. zurückgreift) das priveligierte Recht CAP_NET_BIND_SERVICE
+besitzen um den Port 143 (und für das ältere IMAPS ggf. Port 993) zu
+öffnen. Direkt nach dem Starten kann er aber diverse niemals benötigte
+Rechte abgeben. Nachdem Öffnen des Ports 143 kann er auch
+CAP_NET_BIND_SERVICE abgeben. Wenn sich nun ein System-Benutzer "user"
+per IMAP einloggt und auf ~user/Mail/ zugreifen möchte, so kann der
+IMAP-Server einen neuen Thread starten, dieser mit dem Recht CAP_SETUID
+den Befehl setuid ausführen und damit seine Rechte auf die von user
+beschränken.
+
+Weitere Infos: man capabilities
+
+ -Datei-Berechtigungen (klassisch, +ACLs)
+ -Linux Security Modules (daraus kann man bei Bedarf eine semesterlange Vorlesung füllen, habe selbst aber sehr wenig Erfahrung)
+  -SELinux
+  -AppArmor
