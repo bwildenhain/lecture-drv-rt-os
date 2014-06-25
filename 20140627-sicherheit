@@ -10,6 +10,25 @@
  -CPU unterstütztes Sicherheitsverfahren
  -Speicherseiten werden als Daten- oder Programmsegment markiert
 
+Bei einigen Angriffe gelingt es einem Angreifer, dafür zu sorgen, dass
+von ihm selbst übergebene Daten ausgeführt werden. Um solche Angriffe zu
+verhindern, beherrschen aktuelle Betriebssysteme Data Execution
+Prevention (DEP), dabei können Speicherbereiche seitenweise als
+nicht-ausführbar markiert werden. Die passende Hardware-Unterstützung
+bei Intel-kompatiblen Prozessoren wurde dazu von AMD mit dem Athlon 64
+mit dem sog. NX-Bit (No eXecute) eingeführt (bei Intel als XD-Bit,
+Execute Disable, bezeichnet).
+
+Wenn es einem Angreifer aber gelingt, beliebige Speicherstellen
+auszuführen, so kann er trotz dieser Schutzmaßnahmen im Speicher
+vorhandene Codesegmente nutzen:
+http://www.heise.de/newsticker/meldung/Verwundbar-trotz-No-Execute-135471.html
+
+Auch gibt es bestimmte Programme, die nicht mittels DEP geschützt werden
+können: Der Java-JIT-Compiler verändert zu Laufzeit ausführbaren Code
+und daher können Java-Programme in einer aktuellen VM nicht geschützt
+werden.
+
 -Sicherheitsmechanismen unter Linux
  -Benutzerkonzept
  -Capabilities
