@@ -1,7 +1,19 @@
 -Was sind Buffer-Overflows? (->Wikipedia Pufferüberlauf)
  -Überprüfungswerkzeuge
- -Canary durch Compiler einfügen (analog Kanarienvogel im Bergbau)
+ -Canary (analog Kanarienvogel im Bergbau, https://en.wikipedia.org/wiki/Buffer_overflow_protection#Canaries)
+Der Compiler kann sogenannte Canaries zwischen Daten und Sprungadressen
+platzieren. Üblicherweise liegen lokale Variablen und Rücksprungadressen
+auf einem Stapel. Gelingt es einem Angreifer eine solche Variable so zu
+manipulieren, dass nicht nur der Variableninhalt, sondern auch die
+Rücksprungadresse zu modifizieren, so kann er den Programmablauf ändern.
+Ein Canary ist ein (meist zufälliger) Wert, der zwischen Daten und
+Rücksprungadresse geschrieben wird. Wird dieser durch einen Angriff
+verändert, so wird das Programm abgebrochen. Damit den Angreifer den
+Speicherbereich nicht einfach mit demselben Wert überschreiben kann,
+werden zusätzlich Maßnahmen gegen Lesezugriffe auf den Canary getroffen.
+
  -Rücksprungadresse kopieren
+
 
 -Bugs und potentielle Sicherheitsproblem finden
  -Automatische Codeanalyse -> statische (z.B. ->lint), dynamische (z.B. ->valgrind)
