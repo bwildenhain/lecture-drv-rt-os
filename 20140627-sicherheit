@@ -12,8 +12,15 @@ verändert, so wird das Programm abgebrochen. Damit den Angreifer den
 Speicherbereich nicht einfach mit demselben Wert überschreiben kann,
 werden zusätzlich Maßnahmen gegen Lesezugriffe auf den Canary getroffen.
 
- -Rücksprungadresse kopieren
+ -Speicher-/Adressverwürfelung
+Um Schadcode auszuführen, muss der Angreifer dafür sorgen, dass der von
+ihm manipulierte Speicher für die Ausführung von Schadcode sorgt. Dies
+lässt sich auch dadurch erschweren, dass das Betriebssystem dafür sorgt, dass die
+Speicherstellen, in denen Programmcode und Daten abgelegt werden, nicht
+mehr vorhersagbar sind. Dazu dient die Address Space Layout
+Randomization (ASLR).
 
+Erste Implementierung: Linux-Patch: https://pax.grsecurity.net/docs/aslr.txt
 
 -Bugs und potentielle Sicherheitsproblem finden
  -Automatische Codeanalyse -> statische (z.B. ->lint), dynamische (z.B. ->valgrind)
